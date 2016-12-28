@@ -18,10 +18,13 @@ public:
     explicit Dialog(QWidget *parent = 0);
     ~Dialog();
 
+    std::vector<Square*> createGrid();
+
 private:
     Ui::Dialog *ui;
     QGraphicsScene *scene;
     Square *square;
+    std::vector<Square*> grid;
 };
 
 #endif // DIALOG_H

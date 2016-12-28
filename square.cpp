@@ -1,9 +1,12 @@
 #include "square.h"
 
-Square::Square()
+Square::Square(QPoint top, QPoint bottom)
 {
     clicked = false;
     setFlag(ItemIsMovable);
+
+    this->topLeft = top;
+    this->bottomRight = bottom;
 }
 
 Square::~Square()
@@ -13,7 +16,8 @@ Square::~Square()
 
 QRectF Square::boundingRect() const
 {
-    return QRectF(0,0,30,30);
+//    return QRectF(0,0,30,30);
+    return QRectF(topLeft, bottomRight);
 }
 
 void Square::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)

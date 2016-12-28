@@ -19,4 +19,6 @@ SOURCES += main.cpp\
 HEADERS  += dialog.h \
     square.h
 
-FORMS    += dialog.ui
+FORMS    += dialog.ui \
+
+CONFIG += c++11

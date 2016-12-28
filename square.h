@@ -7,9 +7,10 @@
 class Square : public QGraphicsItem
 {
 public:
-    Square();
+    Square(QPoint top, QPoint bottom);
     ~Square();
 
+    QPoint topLeft, bottomRight;
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     bool clicked;
