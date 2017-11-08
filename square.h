@@ -13,11 +13,19 @@ public:
     QPoint topLeft, bottomRight;
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-    bool clicked;
+    bool leftClicked;
+    bool rightClicked;
+    bool hasBomb;
+    bool markedBomb;
+    static int bombCount;
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+//    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+
+private:
+    bool determineBomb(int low, int high);
+    int updateBombCount();
 };
 
 #endif // SQUARE_H

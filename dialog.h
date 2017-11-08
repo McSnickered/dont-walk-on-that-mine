@@ -18,7 +18,7 @@ public:
     explicit Dialog(QWidget *parent = 0);
     ~Dialog();
 
-    std::vector<Square*> createGrid();
+    std::vector<Square*> createGrid(int rowColNum);
 
 private:
     Ui::Dialog *ui;

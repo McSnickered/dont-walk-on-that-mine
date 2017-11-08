@@ -10,12 +10,7 @@ Dialog::Dialog(QWidget *parent) :
     scene = new QGraphicsScene(this);
     ui->graphicsView->setScene(scene);
 
-//    QPoint top(0,0);
-//    QPoint bottom(30,30);
-//    square = new Square(top, bottom);
-//    scene->addItem(square);
-
-    grid = createGrid();
+    grid = createGrid(10);
     for (Square* s : grid)
     {
         scene->addItem(s);
@@ -27,23 +22,24 @@ Dialog::~Dialog()
     delete ui;
 }
 
-std::vector<Square*> Dialog::createGrid()
+std::vector<Square*> Dialog::createGrid(int rowColNum)
 {
     // Create a 10x10 grid of squares
     int sqSize = 30;
     std::vector<Square*> gridMap;
-    for (int y = 0; y < 8; ++y)
+    for (int y = 0; y < rowColNum; ++y)
     {
-        for (int x = 0; x < 8; ++x)
+        for (int x = 0; x < rowColNum; ++x)
         {
             QPoint top(x * sqSize, y * sqSize);
             QPoint bottom(x * sqSize + sqSize, y * sqSize + sqSize);
-            //QRect rectangle(top, bottom);
             Square *square = new Square(top, bottom);
 
             gridMap.push_back(square);
         }
     }
+
+    ui->lcdCount->display(Square::bombCount);
 
     return gridMap;
 }
