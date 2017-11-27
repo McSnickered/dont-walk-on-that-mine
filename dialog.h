@@ -25,6 +25,7 @@ private:
     QGraphicsScene *scene;
     Square *square;
     std::vector<Square*> grid;
+
 };
 
 #endif // DIALOG_H

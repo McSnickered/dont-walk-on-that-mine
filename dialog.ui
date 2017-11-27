@@ -389,13 +389,13 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="lblGameOver">
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>140</x>
      <y>390</y>
-     <width>151</width>
-     <height>51</height>
+     <width>121</width>
+     <height>21</height>
     </rect>
    </property>
    <property name="palette">

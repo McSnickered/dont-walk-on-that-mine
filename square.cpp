@@ -2,6 +2,8 @@
 #include <QGraphicsSceneMouseEvent>
 
 int Square::bombCount = 0;
+bool Square::gameOver = false;
+
 
 Square::Square(QPoint top, QPoint bottom)
 {
@@ -14,6 +16,8 @@ Square::Square(QPoint top, QPoint bottom)
 
     this->topLeft = top;
     this->bottomRight = bottom;
+
+    this->coms = new SqComms();
 }
 
 Square::~Square()
@@ -27,6 +31,11 @@ QRectF Square::boundingRect() const
 
 void Square::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+    // To get rid of not-used warnings
+    option = option;
+    widget = widget;
+    // end
+
     QRectF rect = boundingRect();
     QBrush brush(Qt::blue);
 
@@ -35,6 +44,8 @@ void Square::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
         brush.setColor(Qt::red);
 
         // Signal to the UI that the game is over
+        emit this->coms->gameIsOver();
+
 
     }
     else if (leftClicked)

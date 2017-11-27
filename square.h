@@ -3,9 +3,11 @@
 
 #include <QPainter>
 #include <QGraphicsItem>
+#include "sqcoms.h"
 
 class Square : public QGraphicsItem
 {
+
 public:
     Square(QPoint top, QPoint bottom);
     ~Square();
@@ -18,10 +20,12 @@ public:
     bool hasBomb;
     bool markedBomb;
     static int bombCount;
+    static bool gameOver;
+
+    SqComms* coms;
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
-//    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
 private:
     bool determineBomb(int low, int high);

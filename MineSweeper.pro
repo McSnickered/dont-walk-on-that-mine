@@ -14,10 +14,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         dialog.cpp \
-    square.cpp
+    square.cpp \
+    sqcoms.cpp
 
 HEADERS  += dialog.h \
-    square.h
+    square.h \
+    sqcoms.h
 
 FORMS    += dialog.ui \
 
