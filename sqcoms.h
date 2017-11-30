@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-class SqComms : QObject
+class SqComms : public QObject
 {
     Q_OBJECT
 
@@ -15,6 +15,7 @@ public slots:
 
 signals:
     void gameIsOver();
+    void flagSet();
 
 };
 

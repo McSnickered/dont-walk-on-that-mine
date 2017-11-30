@@ -45,8 +45,6 @@ void Square::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
 
         // Signal to the UI that the game is over
         emit this->coms->gameIsOver();
-
-
     }
     else if (leftClicked)
     {
@@ -55,6 +53,9 @@ void Square::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     else if (rightClicked)
     {
         brush.setColor(Qt::yellow);
+
+        // Signal to the UI that a square has been flagged so decrement count.
+        emit this->coms->flagSet();
     }
 
     painter->fillRect(rect, brush);

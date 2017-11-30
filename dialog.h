@@ -20,6 +20,10 @@ public:
 
     std::vector<Square*> createGrid(int rowColNum);
 
+public slots:
+    void endGame();
+    void decrementCount();
+
 private:
     Ui::Dialog *ui;
     QGraphicsScene *scene;

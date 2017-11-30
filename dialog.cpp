@@ -35,6 +35,10 @@ std::vector<Square*> Dialog::createGrid(int rowColNum)
             QPoint bottom(x * sqSize + sqSize, y * sqSize + sqSize);
             Square *square = new Square(top, bottom);
 
+            // Connect signals and slots
+            this->connect(square->coms, SIGNAL(gameIsOver()), this, SLOT(endGame()));
+            this->connect(square->coms, SIGNAL(flagSet()), this, SLOT(decrementCount()));
+
             gridMap.push_back(square);
         }
     }
@@ -42,4 +46,16 @@ std::vector<Square*> Dialog::createGrid(int rowColNum)
     ui->lcdCount->display(Square::bombCount);
 
     return gridMap;
+}
+
+void Dialog::endGame()
+{
+    ui->lblGameOver->setText("GAME OVER!");
+}
+
+void Dialog::decrementCount()
+{
+    int tmpValue = ui->lcdCount->intValue();
+    --tmpValue;
+    ui->lcdCount->display(tmpValue);
 }
