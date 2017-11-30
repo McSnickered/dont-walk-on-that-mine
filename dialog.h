@@ -22,7 +22,9 @@ public:
 
 public slots:
     void endGame();
-    void decrementCount();
+    void displayCount();
+    void startNewGame();
+    void quitGame();
 
 private:
     Ui::Dialog *ui;

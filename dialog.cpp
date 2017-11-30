@@ -5,10 +5,18 @@ Dialog::Dialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Dialog)
 {
+
+
     ui->setupUi(this);
 
     scene = new QGraphicsScene(this);
     ui->graphicsView->setScene(scene);
+    ui->btnNewGame->setVisible(false);
+    ui->btnQuit->setVisible(false);
+    ui->lblGameOver->setVisible(false);
+
+    this->connect(this->ui->btnNewGame, SIGNAL(clicked()), this, SLOT(startNewGame()));
+    this->connect(this->ui->btnQuit, SIGNAL(clicked()), this, SLOT(quitGame()));
 
     grid = createGrid(10);
     for (Square* s : grid)
@@ -37,25 +45,44 @@ std::vector<Square*> Dialog::createGrid(int rowColNum)
 
             // Connect signals and slots
             this->connect(square->coms, SIGNAL(gameIsOver()), this, SLOT(endGame()));
-            this->connect(square->coms, SIGNAL(flagSet()), this, SLOT(decrementCount()));
+            this->connect(square->coms, SIGNAL(flagSet()), this, SLOT(displayCount()));
 
             gridMap.push_back(square);
         }
     }
 
-    ui->lcdCount->display(Square::bombCount);
+    ui->lcdCount->display(10);
 
     return gridMap;
 }
 
 void Dialog::endGame()
 {
-    ui->lblGameOver->setText("GAME OVER!");
+    // 1.) Disable the graphics view so player can't click on squares
+    // 2.) Enable the New Game button
+    ui->graphicsView->setEnabled(false);
+    ui->lblGameOver->setVisible(true);
+    ui->btnNewGame->setEnabled(true);
+    ui->btnNewGame->setVisible(true);
+    ui->btnQuit->setEnabled(true);
+    ui->btnQuit->setVisible(true);
 }
 
-void Dialog::decrementCount()
+void Dialog::displayCount()
 {
-    int tmpValue = ui->lcdCount->intValue();
-    --tmpValue;
-    ui->lcdCount->display(tmpValue);
+    ui->lcdCount->display(Square::bombCount);
+}
+
+void Dialog::startNewGame()
+{
+    QProcess process;
+    process.startDetached("Minesweeper");
+
+    QApplication::quit();
+
+}
+
+void Dialog::quitGame()
+{
+    QApplication::quit();
 }

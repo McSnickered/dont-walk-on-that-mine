@@ -53,9 +53,6 @@ void Square::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     else if (rightClicked)
     {
         brush.setColor(Qt::yellow);
-
-        // Signal to the UI that a square has been flagged so decrement count.
-        emit this->coms->flagSet();
     }
 
     painter->fillRect(rect, brush);
@@ -67,6 +64,14 @@ void Square::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton)
     {
+        if (rightClicked)
+        {
+            rightClicked = false;
+            markedBomb = false;
+            ++bombCount;
+            this->setToolTip("");
+        }
+
         leftClicked = true;
     }
     else if (event->button() == Qt::RightButton)
@@ -81,13 +86,19 @@ void Square::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
         else
         {
-            rightClicked = true;
-            markedBomb = true;
-            --bombCount;
-
-            this->setToolTip("You think this is a bomb :-)");
+            if (bombCount > 0)
+            {
+                rightClicked = true;
+                markedBomb = true;
+                --bombCount;
+                this->setToolTip("You think this is a bomb :-)");
+            }
         }
     }
+
+    // Signal to the UI to update the LCD count display in case it changed
+    emit this->coms->flagSet();
+
     update();
     QGraphicsItem::mousePressEvent(event);
 }
