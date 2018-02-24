@@ -1,5 +1,6 @@
 #include "square.h"
 #include <QGraphicsSceneMouseEvent>
+#include <QTime>
 
 int Square::bombCount = 0;
 bool Square::gameOver = false;
@@ -11,8 +12,6 @@ Square::Square(QPoint top, QPoint bottom)
     rightClicked = false;
     markedBomb = false;
     hasBomb = determineBomb(1, 10);
-
-    //    setFlag(ItemIsMovable);
 
     this->topLeft = top;
     this->bottomRight = bottom;
@@ -106,11 +105,12 @@ void Square::mousePressEvent(QGraphicsSceneMouseEvent *event)
 bool Square::determineBomb(int low, int high)
 {
     bool bombExists = false;
+    int seed = QTime::currentTime().msec();
 
     // Limit the number of bombs to 10
     if (bombCount < 10)
     {
-        bombExists = (qrand() % ((high + 1) - low) + low) == 5;
+        bombExists = (qsrand(seed) % ((high + 1) - low) + low) == 5;
 
         if (bombExists)
             ++bombCount;

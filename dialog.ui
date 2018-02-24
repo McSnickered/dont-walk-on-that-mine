@@ -75,7 +75,7 @@
    </palette>
   </property>
   <property name="windowTitle">
-   <string>SquareSweeper</string>
+   <string>Don't Walk On That Mine</string>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
